@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Form,
-  FormControl
-} from "react-bootstrap";
+import { Container, Button, Row, Col, Form } from "react-bootstrap";
+import { login } from "./LoginActions.js"; 
+
+const LoginWithNavigation = (props) => {
+  const navigate = useNavigate();
+  return <Login {...props} navigate={navigate} />;
+};
 
 class Login extends Component {
   constructor(props) {
@@ -17,17 +19,27 @@ class Login extends Component {
       password: ""
     };
   }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // onLoginClick = () => {
+  //   const userData = {
+  //     username: this.state.username,
+  //     password: this.state.password
+  //   };
+  //   this.props.login(userData, () => this.props.navigate("/dashboard"));
+  // };
   onLoginClick = () => {
     const userData = {
       username: this.state.username,
       password: this.state.password
     };
-    console.log("Login " + userData.username + " " + userData.password);
-  };
+    // Pass the navigate function as redirectTo parameter
+    this.props.login(userData, this.props.navigate);
+  };//new
+
   render() {
     return (
       <Container>
@@ -44,7 +56,6 @@ class Login extends Component {
                   value={this.state.username}
                   onChange={this.onChange}
                 />
-                <FormControl.Feedback type="invalid"></FormControl.Feedback>
               </Form.Group>
 
               <Form.Group controlId="passwordId">
@@ -56,7 +67,6 @@ class Login extends Component {
                   value={this.state.password}
                   onChange={this.onChange}
                 />
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
             </Form>
             <Button color="primary" onClick={this.onLoginClick}>Login</Button>
@@ -70,4 +80,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  navigate: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { login })(LoginWithNavigation);
