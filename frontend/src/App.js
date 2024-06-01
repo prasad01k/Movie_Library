@@ -6,9 +6,13 @@ import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import { ToastContainer } from "react-toastify";
-
+import requireAuth from "./utils/RequireAuth";
 import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000";
+
+
+const AuthRequired = requireAuth(Dashboard);
+
 
 class App extends Component {
   render() {
@@ -16,10 +20,10 @@ class App extends Component {
       <div>
         <Root>
           <Routes>
+            <Route path="/dashboard" element={<AuthRequired/>} />
             <Route path="*">Ups</Route>
             <Route path="/signup" element={<Signup/>} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/dashboard" element={<Dashboard/>} />
             <Route exact path="/" element={<Home/>} />
           </Routes>
         </Root>
