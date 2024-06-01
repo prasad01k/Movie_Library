@@ -1,0 +1,24 @@
+/* src/App.css */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .movie-item {
+    width: 200px;
+    text-align: center;
+  }
+  
