@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './PlayListForm.css';
 
 const PlaylistForm = ({ fetchPlaylists }) => {
   const [name, setName] = useState('');
@@ -18,7 +19,7 @@ const PlaylistForm = ({ fetchPlaylists }) => {
 
     if (response.status === 201) {
       alert('Playlist created successfully');
-      fetchPlaylists(); // Refresh playlists
+      fetchPlaylists(); 
     } else {
       alert('Failed to create playlist');
     }
@@ -26,28 +27,33 @@ const PlaylistForm = ({ fetchPlaylists }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Playlist Name:
-          <input 
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-          />
-        </label>
+      <div class="background">
+        <div>
+          <label>
+            Playlist Name:
+            <input 
+              class="input-field"
+              type="text" 
+              placeholder='playlist name'
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Public:
+            <input 
+              class="input-field"
+              type="checkbox" 
+              checked={isPublic} 
+              onChange={(e) => setIsPublic(e.target.checked)} 
+            />
+          </label>
+        </div>
+        <button class="submit-btn" type="submit">Create Playlist</button>
       </div>
-      <div>
-        <label>
-          Public:
-          <input 
-            type="checkbox" 
-            checked={isPublic} 
-            onChange={(e) => setIsPublic(e.target.checked)} 
-          />
-        </label>
-      </div>
-      <button type="submit">Create Playlist</button>
     </form>
   );
 };

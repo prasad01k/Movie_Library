@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Container, Button, Row, Col, Form } from "react-bootstrap";
 import { login } from "./LoginActions.js"; 
+import './Login.css';
 
 const LoginWithNavigation = (props) => {
   const navigate = useNavigate();
@@ -23,14 +24,6 @@ class Login extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  // onLoginClick = () => {
-  //   const userData = {
-  //     username: this.state.username,
-  //     password: this.state.password
-  //   };
-  //   this.props.login(userData, () => this.props.navigate("/dashboard"));
-  // };
   onLoginClick = () => {
     const userData = {
       username: this.state.username,
@@ -42,10 +35,10 @@ class Login extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
+      <Container class="container">
+        <Row class="row">
           <Col md="4">
-            <h1>Login</h1>
+            <h1 class="title">Login</h1>
             <Form>
               <Form.Group controlId="usernameId">
                 <Form.Label>User name</Form.Label>
@@ -69,7 +62,7 @@ class Login extends Component {
                 />
               </Form.Group>
             </Form>
-            <Button color="primary" onClick={this.onLoginClick}>Login</Button>
+            <Button class="btn" color="primary" onClick={this.onLoginClick}>Login</Button>
             <p className="mt-2">
               Don't have account? <Link to="/signup">Signup</Link>
             </p>

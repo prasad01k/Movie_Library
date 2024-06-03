@@ -1,0 +1,159 @@
+.dashboard-container {
+    height: 100vh;
+    background-image: url('../movie-background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll; 
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    color: #ccc !important;
+}
+
+.container {
+    margin-top: 20px;
+    color: white;
+}
+
+.dashboard-title {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #fff;
+    background-color: black;
+    padding-left: 450px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+}
+
+.playlist-section,
+.movie-section {
+    margin-top: 30px;
+}
+
+.playlist-section select {
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.playlist-item,
+.movie-item {
+    list-style-type: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    color: #333;
+}
+
+.movie-item {
+    display: flex;
+    align-items: center;
+}
+
+.movie-item img {
+    width: 50px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.movie-item h4 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.movie-item p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.movie-list,
+.playlist-list {
+    padding: 0;
+}
+
+.movie-list-item,
+.playlist-list-item {
+    margin-bottom: 15px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.nav-link {
+    cursor: pointer;
+    padding-right: 15px;
+    padding-left: 15px;
+    color: #fff !important; 
+}
+
+.nav-link:hover {
+    color: #007bff !important;
+}
+
+.playlist-section select {
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: #333; 
+}
+
+.playlist-list-item,
+.movie-item {
+    color: #333; 
+}
+
+.movie-section{
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.movie-list,
+.playlist-list {
+    padding: 0;
+}
+
+.movie-list-item,
+.playlist-list-item {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 767px) {
+    .navbar-brand {
+        margin-right: auto;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .navbar-nav .nav-link {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+.playlist-section{
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+}

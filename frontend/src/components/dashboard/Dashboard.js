@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import SearchBar from '../movies_search/SearchBar';
 import MovieList from '../movies_search/MovieList';
 import PlaylistForm from '../PlayListForm';
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
 import { logout } from "../login/LoginActions";
 import axios from 'axios';
+import './Dashboard.css';
 
 const Dashboard = (props) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Dashboard = (props) => {
 
   const onLogout = () => {
     props.logout();
-    navigate("/"); // Redirect to home after logout
+    navigate("/"); 
   };
 
   const fetchPlaylists = async () => {
@@ -29,7 +30,7 @@ const Dashboard = (props) => {
         }
       });
       setPlaylists(response.data);
-      console.log('Fetched playlists:', response.data); // Debug: log fetched playlists
+      console.log('Fetched playlists:', response.data); 
     } catch (error) {
       console.error('Error fetching playlists:', error);
     }
@@ -65,16 +66,16 @@ const Dashboard = (props) => {
     }
   
     const releaseYear = movie.Year;
-    const releaseDate = `${releaseYear}-01-01`; // Default to January 1st
+    const releaseDate = `${releaseYear}-01-01`; 
   
     const movieData = {
       title: movie.Title,
-      description: movie.Description || "", // Assuming the description is optional
+      description: movie.Description || "",
       release_date: releaseDate,
-      image_url: movie.Poster // Include image URL
+      image_url: movie.Poster 
     };
   
-    console.log('Movie data to add:', movieData); // Debug: log movie data
+    console.log('Movie data to add:', movieData);
   
     try {
       const response = await axios.post(`http://localhost:8000/api/playlists/${selectedPlaylist}/add_movie/`, {
@@ -87,7 +88,7 @@ const Dashboard = (props) => {
   
       if (response.status === 200) {
         alert('Movie added to playlist');
-        fetchPlaylistMovies(selectedPlaylist); // Fetch the updated movies for the selected playlist
+        fetchPlaylistMovies(selectedPlaylist); 
       } else {
         alert('Failed to add movie to playlist');
       }
@@ -105,14 +106,14 @@ const Dashboard = (props) => {
 
   const fetchPlaylistMovies = async (playlistId) => {
     try {
-        console.log('Fetching movies for playlist:', playlistId); // Debug: log fetching movies
+        console.log('Fetching movies for playlist:', playlistId); 
         const response = await axios.get(`http://localhost:8000/api/playlists/${playlistId}/movies/`, {
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
         });
-        console.log('Fetched playlist movies:', response.data); // Debug: log fetched playlist movies
-        setPlaylistMovies(response.data); // Assuming the response is a list of movies
+        console.log('Fetched playlist movies:', response.data); 
+        setPlaylistMovies(response.data); 
     } catch (error) {
         console.error('Error fetching playlist movies:', error);
     }
@@ -124,58 +125,67 @@ const Dashboard = (props) => {
     }
   }, [selectedPlaylist]);
 
-  // Handle missing username with optional chaining
   const username = props.auth.user?.username || "Unknown User";
 
   return (
-    <div>
-      <Navbar bg="light">
-        <Navbar.Brand as={Link} to="/">
+    <div className="dashboard-container">
+      <Navbar bg="dark" variant="dark" expand="lg" className="navbar">
+        <Navbar.Brand as={Link} to="/" className="navbar-brand">
           Home
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Nav.Link onClick={onLogout}>Logout</Nav.Link>
+          <Nav className="ml-auto">
+            <Nav.Link onClick={onLogout} className="nav-link">Logout</Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
       <Container>
-        <h1>Dashboard</h1>
-        <SearchBar onSearch={handleSearch} />
-        <MovieList movies={movies} onAddToPlaylist={handleAddToPlaylist} />
-        <PlaylistForm fetchPlaylists={fetchPlaylists} />
-        <div>
-          <h2>Your Playlists</h2>
-          <select onChange={(e) => setSelectedPlaylist(e.target.value)} value={selectedPlaylist}>
-            <option value="">Select Playlist</option>
-            {playlists.map((playlist) => (
-              <option key={playlist.id} value={playlist.id}>{playlist.name}</option>
-            ))}
-          </select>
-          <ul>
-            {playlists.map((playlist) => (
-              <li key={playlist.id}>
-                {playlist.name} - {playlist.is_public ? 'Public' : 'Private'}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2>Movies in Selected Playlist</h2>
-          <ul>
-            {playlistMovies.map((movie, index) => (
-              <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                <img src={movie.image_url} alt={movie.title} style={{ width: '50px', marginRight: '10px' }} />
-                <div>
-                  <h4>{movie.title} ({movie.release_date})</h4>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <h1 className="dashboard-title">Dashboard</h1>
+        <Row>
+            <Col md={6}>
+              <SearchBar className="search-bar" onSearch={handleSearch} />
+              <MovieList movies={movies} onAddToPlaylist={handleAddToPlaylist} />
+            </Col>
+          <Col md={6}>
+            <PlaylistForm fetchPlaylists={fetchPlaylists} />
+            <div className="playlist-section">
+              <h2>Your Playlists</h2>
+              <select onChange={(e) => setSelectedPlaylist(e.target.value)} value={selectedPlaylist}>
+                <option value="">Select Playlist</option>
+                {playlists.map((playlist) => (
+                  <option key={playlist.id} value={playlist.id}>{playlist.name}</option>
+                ))}
+              </select>
+              <ul className="playlist-list">
+                {playlists.map((playlist) => (
+                  <li key={playlist.id} className="playlist-item">
+                    {playlist.name} - {playlist.is_public ? 'Public' : 'Private'}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="movie-section">
+              <h2>Movies in Selected Playlist</h2>
+              <ul className="movie-list">
+                {playlistMovies.map((movie, index) => (
+                  <li key={index} className="movie-item">
+                    <img src={movie.image_url} alt={movie.title} />
+                    <div>
+                      <h4>{movie.title} ({movie.release_date})</h4>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </div>
   );
 };
+
+
 
 Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,

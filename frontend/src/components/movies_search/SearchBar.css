@@ -1,0 +1,19 @@
+.search-bar{
+    background-color: black;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.input-field{
+    font-size: large;
+    border-radius: 10px;
+}
+
+.submit-button{
+    border: none;
+    color: white;
+    margin-left: 25px;
+    font-size: large;
+    border-radius: 20px;
+    background-color: green;
+}

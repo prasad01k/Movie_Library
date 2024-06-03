@@ -1,4 +1,5 @@
 import React from 'react';
+import './MovieList.css';
 
 const MovieList = ({ movies, onAddToPlaylist }) => {
   return (

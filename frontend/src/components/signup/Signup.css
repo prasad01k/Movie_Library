@@ -1,0 +1,17 @@
+.title{
+    color: black;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    margin-top: 130px;
+}
+
+.mt-2{
+    color: black;
+}
+
+.btn{
+    margin-top: 20px;
+}
