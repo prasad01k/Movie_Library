@@ -139,7 +139,7 @@ const Dashboard = (props) => {
     }
   }, [selectedPlaylist]);
 
-  const username = props.auth.user?.username || "Unknown User";
+  // const username = props.auth.user?.username || "Unknown User";
 
   return (
     <div className="dashboard-container">

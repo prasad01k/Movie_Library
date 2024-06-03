@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState} from "react";
+// import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux"; 
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ import { signupNewUser } from "./SignupActions";
 const Signup = ({ signupNewUser, createUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); 
+  // const navigate = useNavigate(); 
 
   const onChange = (e) => {
     const { name, value } = e.target;
