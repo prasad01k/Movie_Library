@@ -1,7 +1,6 @@
-// src/components/MovieList.js
 import React from 'react';
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, onAddToPlaylist }) => {
   return (
     <div className="movie-list">
       {movies.map((movie) => (
@@ -9,6 +8,7 @@ const MovieList = ({ movies }) => {
           <img src={movie.Poster} alt={movie.Title} />
           <h3>{movie.Title}</h3>
           <p>{movie.Year}</p>
+          <button onClick={() => onAddToPlaylist(movie)}>Add to Playlist</button>
         </div>
       ))}
     </div>
