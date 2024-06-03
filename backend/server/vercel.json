@@ -9,5 +9,8 @@
             "src": "/(.*)",
             "dest": "backend/server/server/wsgi.py"
         }
-    ]
+    ],
+    "hooks": {
+        "build": "cd backend && python3 manage.py collectstatic --noinput"
+    }
 }
