@@ -8,52 +8,64 @@ const PlaylistForm = ({ fetchPlaylists }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:8000/api/playlists/', {
+
+    const data = {
       name,
       is_public: isPublic,
-    }, {
-      headers: {
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-    });
+    };
 
-    if (response.status === 201) {
-      alert('Playlist created successfully');
-      fetchPlaylists(); 
-    } else {
+    // Debugging statement
+    console.log('Sending data:', data);
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/playlists/', data, {
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.status === 201) {
+        alert('Playlist created successfully');
+        fetchPlaylists(); 
+      } else {
+        alert('Failed to create playlist');
+      }
+    } catch (error) {
+      // Debugging statement
+      console.error('Error response:', error.response);
       alert('Failed to create playlist');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div class="background">
-        <div>
-          <label>
-            Playlist Name:
-            <input 
-              class="input-field"
-              type="text" 
-              placeholder='playlist name'
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-            />
-          </label>
+        <div className="background">
+            <div>
+                <label>
+                    Playlist Name:
+                    <input 
+                        className="input-field"
+                        type="text" 
+                        placeholder='playlist name'
+                        value={name} 
+                        onChange={(e) => setName(e.target.value)} 
+                        required 
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Public:
+                    <input 
+                        className="input-field" 
+                        type="checkbox" 
+                        checked={isPublic} 
+                        onChange={(e) => setIsPublic(e.target.checked)} 
+                    />
+                </label>
+            </div>
+            <button className="submit-btn" type="submit">Create Playlist</button> 
         </div>
-        <div>
-          <label>
-            Public:
-            <input 
-              class="input-field"
-              type="checkbox" 
-              checked={isPublic} 
-              onChange={(e) => setIsPublic(e.target.checked)} 
-            />
-          </label>
-        </div>
-        <button class="submit-btn" type="submit">Create Playlist</button>
-      </div>
     </form>
   );
 };

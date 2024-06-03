@@ -1,41 +1,29 @@
 import axios from "axios";
-import { push } from "@lagunovsky/redux-react-router"
+import { push } from "@lagunovsky/redux-react-router";
 import { toast } from "react-toastify";
 import { SET_TOKEN, SET_CURRENT_USER, UNSET_CURRENT_USER } from "./LoginTypes";
 import { setAxiosAuthToken, toastOnError } from "../../utils/Utils";
 
-// export const login = (userData, redirectTo) => dispatch => {
-//   axios
-//     .post("/api/v1/token/login/", userData)
-//     .then(response => {
-//       const { auth_token } = response.data;
-//       setAxiosAuthToken(auth_token);
-//       dispatch(setToken(auth_token));
-//       dispatch(getCurrentUser(redirectTo));
-//     })
-//     .catch(error => {
-//       dispatch(unsetCurrentUser());
-//       toastOnError(error);
-//     });
-// };
 export const login = (userData, redirectTo) => dispatch => {
+  console.log('Login request payload:', userData); // Debugging statement
+
   axios
-    .post("/api/v1/token/login/", userData)
+    .post("http://127.0.0.1:8000/api/v1/token/login/", userData)
     .then(response => {
       const { auth_token } = response.data;
+      console.log('Login response:', response.data); // Debugging statement
       setAxiosAuthToken(auth_token);
       dispatch(setToken(auth_token));
-      // After successfully setting token, call redirectTo function
       if (typeof redirectTo === 'function') {
         redirectTo("/dashboard");
       }
     })
     .catch(error => {
+      console.error('Login error:', error.response ? error.response.data : error.message); // Debugging statement
       dispatch(unsetCurrentUser());
       toastOnError(error);
     });
 };
-//new
 
 export const getCurrentUser = redirectTo => dispatch => {
   axios
@@ -60,7 +48,6 @@ export const setCurrentUser = (user, redirectTo) => dispatch => {
     payload: user
   });
 
-  console.log("set user" + redirectTo);
   if (redirectTo !== "") {
     dispatch(push(redirectTo));
   }

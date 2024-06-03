@@ -42,11 +42,11 @@ const Signup = ({ signupNewUser, createUser }) => {
   };
 
   return (
-    <div class="body">
-    <Container class="container">
-      <Row class="row">
+    <div className="body">
+    <Container className="container">
+      <Row className="row">
         <Col md="4">
-          <h1 class="title">Sign up</h1>
+          <h1 className="title">Sign up</h1>
           <Form>
             <Form.Group controlId="usernameId">
               <Form.Label>User name</Form.Label>
@@ -78,7 +78,7 @@ const Signup = ({ signupNewUser, createUser }) => {
               </FormControl.Feedback>
             </Form.Group>
           </Form>
-          <Button class="btn" color="primary" onClick={onSignupClick}>
+          <Button className="btn" color="primary" onClick={onSignupClick}>
             Sign up
           </Button>
           <p className="mt-2">

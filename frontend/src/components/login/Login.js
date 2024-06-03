@@ -24,22 +24,23 @@ class Login extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  onLoginClick = () => {
+
+  onLoginClick = e => {
+    e.preventDefault();
     const userData = {
       username: this.state.username,
       password: this.state.password
     };
-    // Pass the navigate function as redirectTo parameter
     this.props.login(userData, this.props.navigate);
-  };//new
+  };
 
   render() {
     return (
-      <Container class="container">
-        <Row class="row">
+      <Container className="container">
+        <Row className="row">
           <Col md="4">
-            <h1 class="title">Login</h1>
-            <Form>
+            <h1 className="title">Login</h1>
+            <Form onSubmit={this.onLoginClick}>
               <Form.Group controlId="usernameId">
                 <Form.Label>User name</Form.Label>
                 <Form.Control
@@ -61,10 +62,10 @@ class Login extends Component {
                   onChange={this.onChange}
                 />
               </Form.Group>
+              <Button type="submit" className="btn" color="primary">Login</Button>
             </Form>
-            <Button class="btn" color="primary" onClick={this.onLoginClick}>Login</Button>
             <p className="mt-2">
-              Don't have account? <Link to="/signup">Signup</Link>
+              Don't have an account? <Link to="/signup">Signup</Link>
             </p>
           </Col>
         </Row>

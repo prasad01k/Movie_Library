@@ -24,17 +24,31 @@ const Dashboard = (props) => {
 
   const fetchPlaylists = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/playlists/', {
-        headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No token found');
         }
-      });
-      setPlaylists(response.data);
-      console.log('Fetched playlists:', response.data); 
+
+        console.log('Token:', token); // Verify the token
+
+        const response = await axios.get('http://localhost:8000/api/playlists/', {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        });
+        setPlaylists(response.data);
+        console.log('Fetched playlists:', response.data);
     } catch (error) {
-      console.error('Error fetching playlists:', error);
+        console.error('Error fetching playlists:', error);
+        if (error.response && error.response.status === 401) {
+            alert('Unauthorized access - please log in again.');
+            // Optionally, redirect to the login page
+            // navigate('/login');
+        }
     }
-  };
+};
+
+
 
   useEffect(() => {
     fetchPlaylists();
